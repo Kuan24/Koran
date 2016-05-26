@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AlKuranDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Administrators">
+    <Key>
+      <PropertyRef Name="A_Id" />
+    </Key>
+    <Property Name="A_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminLogin" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdminPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="A_Id" />
+    </Key>
+    <Property Name="A_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleTitle" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ArticleAnnotation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ArticleText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ArticleDate" Type="DateTime" Precision="3" />
+    <Property Name="M_M_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Menu" Relationship="Self.FK_Articles_Menu" FromRole="Articles" ToRole="Menu" />
+  </EntityType>
+  <EntityType Name="Ayats">
+    <Key>
+      <PropertyRef Name="A_Id" />
+    </Key>
+    <Property Name="A_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AyatNumber" Type="Int32" Nullable="false" />
+    <Property Name="AyatText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="S_S_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Surahs" Relationship="Self.FK_Ayats_Surahs" FromRole="Ayats" ToRole="Surahs" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="B_Id" />
+    </Key>
+    <Property Name="B_Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="SurahNumbers" Relationship="Self.FK_SurahNumbers_Books" FromRole="Books" ToRole="SurahNumbers" />
+    <NavigationProperty Name="Surahs" Relationship="Self.FK_Surahs_Books" FromRole="Books" ToRole="Surahs" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="M_Id" />
+    </Key>
+    <Property Name="M_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MenuLocation" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="M_M_Id" Type="Int32" />
+    <Property Name="MenuOrder" Type="Int16" />
+    <Property Name="MenuEng" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Articles" Relationship="Self.FK_Articles_Menu" FromRole="Menu" ToRole="Articles" />
+    <NavigationProperty Name="Menu1" Relationship="Self.FK_Menu_Menu" FromRole="Menu" ToRole="Menu1" />
+    <NavigationProperty Name="Menu2" Relationship="Self.FK_Menu_Menu" FromRole="Menu1" ToRole="Menu" />
+  </EntityType>
+  <EntityType Name="SurahNumbers">
+    <Key>
+      <PropertyRef Name="SN_Id" />
+    </Key>
+    <Property Name="SN_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SurahNumber" Type="Int32" Nullable="false" />
+    <Property Name="B_B_Id" Type="Int16" Nullable="false" />
+    <Property Name="S_S_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK_SurahNumbers_Books" FromRole="SurahNumbers" ToRole="Books" />
+    <NavigationProperty Name="Surahs" Relationship="Self.FK_SurahNumbers_Surahs" FromRole="SurahNumbers" ToRole="Surahs" />
+  </EntityType>
+  <EntityType Name="Surahs">
+    <Key>
+      <PropertyRef Name="S_Id" />
+    </Key>
+    <Property Name="S_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SurahName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="B_B_Id" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Ayats" Relationship="Self.FK_Ayats_Surahs" FromRole="Surahs" ToRole="Ayats" />
+    <NavigationProperty Name="Books" Relationship="Self.FK_Surahs_Books" FromRole="Surahs" ToRole="Books" />
+    <NavigationProperty Name="SurahNumbers" Relationship="Self.FK_SurahNumbers_Surahs" FromRole="Surahs" ToRole="SurahNumbers" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Articles_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+    <End Role="Articles" Type="Self.Articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="M_Id" />
+      </Principal>
+      <Dependent Role="Articles">
+        <PropertyRef Name="M_M_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ayats_Surahs">
+    <End Role="Surahs" Type="Self.Surahs" Multiplicity="1" />
+    <End Role="Ayats" Type="Self.Ayats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Surahs">
+        <PropertyRef Name="S_Id" />
+      </Principal>
+      <Dependent Role="Ayats">
+        <PropertyRef Name="S_S_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurahNumbers_Books">
+    <End Role="Books" Type="Self.Books" Multiplicity="1" />
+    <End Role="SurahNumbers" Type="Self.SurahNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="B_Id" />
+      </Principal>
+      <Dependent Role="SurahNumbers">
+        <PropertyRef Name="B_B_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Surahs_Books">
+    <End Role="Books" Type="Self.Books" Multiplicity="1" />
+    <End Role="Surahs" Type="Self.Surahs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="B_Id" />
+      </Principal>
+      <Dependent Role="Surahs">
+        <PropertyRef Name="B_B_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Menu_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+    <End Role="Menu1" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="M_Id" />
+      </Principal>
+      <Dependent Role="Menu1">
+        <PropertyRef Name="M_M_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurahNumbers_Surahs">
+    <End Role="Surahs" Type="Self.Surahs" Multiplicity="1" />
+    <End Role="SurahNumbers" Type="Self.SurahNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Surahs">
+        <PropertyRef Name="S_Id" />
+      </Principal>
+      <Dependent Role="SurahNumbers">
+        <PropertyRef Name="S_S_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AlKuranDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Administrators" EntityType="Self.Administrators" />
+    <EntitySet Name="Articles" EntityType="Self.Articles" />
+    <EntitySet Name="Ayats" EntityType="Self.Ayats" />
+    <EntitySet Name="Books" EntityType="Self.Books" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" />
+    <EntitySet Name="SurahNumbers" EntityType="Self.SurahNumbers" />
+    <EntitySet Name="Surahs" EntityType="Self.Surahs" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_Articles_Menu" Association="Self.FK_Articles_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="Articles" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ayats_Surahs" Association="Self.FK_Ayats_Surahs">
+      <End Role="Surahs" EntitySet="Surahs" />
+      <End Role="Ayats" EntitySet="Ayats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurahNumbers_Books" Association="Self.FK_SurahNumbers_Books">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="SurahNumbers" EntitySet="SurahNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Surahs_Books" Association="Self.FK_Surahs_Books">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="Surahs" EntitySet="Surahs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Menu_Menu" Association="Self.FK_Menu_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="Menu1" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurahNumbers_Surahs" Association="Self.FK_SurahNumbers_Surahs">
+      <End Role="Surahs" EntitySet="Surahs" />
+      <End Role="SurahNumbers" EntitySet="SurahNumbers" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetAyatsBySearchPhrase">
+      <Parameter Name="Phrase" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetAyatsBySearchPhrase_1">
+      <Parameter Name="Phrase" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetBookId" ReturnType="Collection(Int16)">
+      <Parameter Name="BookName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetPassword" ReturnType="Collection(String)">
+      <Parameter Name="AdminLogin" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(AlKuranDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(AlKuranDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertArticle">
+      <Parameter Name="ArticleTitle" Mode="In" Type="String" />
+      <Parameter Name="ArticleAnnotation" Mode="In" Type="String" />
+      <Parameter Name="ArticleText" Mode="In" Type="String" />
+      <Parameter Name="M_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertAyat">
+      <Parameter Name="AyatNumber" Mode="In" Type="Int32" />
+      <Parameter Name="AyatText" Mode="In" Type="String" />
+      <Parameter Name="S_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertNamePassword">
+      <Parameter Name="LoginName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsertSurah">
+      <Parameter Name="SurahName" Mode="In" Type="String" />
+      <Parameter Name="B_Id" Mode="In" Type="Int16" />
+      <Parameter Name="S_Id" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateArticle">
+      <Parameter Name="ArticleTitle" Mode="In" Type="String" />
+      <Parameter Name="ArticleAnnotation" Mode="In" Type="String" />
+      <Parameter Name="ArticleText" Mode="In" Type="String" />
+      <Parameter Name="A_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdatePassword">
+      <Parameter Name="A_Id" Mode="In" Type="Int32" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

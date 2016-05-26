@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style type="text/css">
+        #cover {
+            background: url("http://koran.site/ru/Images/ajax-loader.gif") no-repeat scroll center center #FFF;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <script src="http://koran.site/ru/Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#cover').fadeOut(100000);
+            var lang = window.navigator.language;
+            if (lang.toLowerCase().indexOf("ru") >= 0) {
+                if ($(window).width() <= 800) {
+                    document.location = "http://koran.site/ru/mobile";
+                }
+                else {
+                    document.location = "http://koran.site/ru";
+                }
+            }
+            else {
+                if ($(window).width() <= 800) {
+                    document.location = "http://koran.site/en/mobile";
+                }
+                else {
+                    document.location = "http://koran.site/en";
+                }
+            }
+        });
+    </script>
+
+</head>
+<body> 
+    <div id="cover"></div>
+    <a href="http://koran.site/ru" style="color: white">Коран онлайн</a>
+    <a href="http://koran.site/ru/mobile" style="color: white">Коран онлайн</a>
+    <a href="http://koran.site/en" style="color: white">Koran (Quran) online</a>
+    <a href="http://koran.site/en/mobile" style="color: white">Koran online</a>
+</body>
+</html>

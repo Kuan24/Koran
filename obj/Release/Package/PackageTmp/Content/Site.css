@@ -1,0 +1,125 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family:'Segoe UI', Verdana, Tahoma, Geneva, sans-serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    width:100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.main-menu{
+    font-size:x-large;
+}
+#leftMenu { 
+        width:310px; 
+        float:left; 
+        text-align:left;
+        }
+
+.Ayats { 
+        width:710px; 
+        float:left; 
+        text-align:left;
+        padding-left: 15px;
+        }
+.Ayats1024 { 
+        width:680px; 
+        float:left; 
+        text-align:left;
+        padding-left: 15px;
+        }
+.ayats-in-table{
+    text-align:left;
+    padding-left: 10px;
+}
+
+.SurahsTable{
+    vertical-align: top;
+}
+
+.VoImya{
+    font-weight:normal;
+    font-style: italic; 
+}
+
+.textBoxSN{
+    border:inset;
+    border-width:thin;
+    border-color:gray;
+    width: 45px;
+}
+
+.cTextError{
+    color:red;
+}
+.center-content{
+    text-align: center;
+    vertical-align: top;
+}
+/*=========================================*/
+.ArticleTitle{
+    font-size:larger;
+    font-weight:bold;
+}
+
+/*цвет a href====================*/
+a:visited {
+    color: #3e815d !important;
+}
+
+a:active {
+    color: #0b530d !important;
+}
+
+a {
+    color: #3e815d !important;
+}
+/*============================*/
+.DivTr{
+    margin-left: 4px;
+    margin-right: 4px;
+    
+}
+.bold-search{
+    font-weight: bold;
+}
+.gray-text{
+    color:darkgray;
+}
+.container {
+    width:100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.surah-of-day{
+    color: black;
+    text-align:left;
+}
+.p-footer{
+    font-size:12px;
+}
+.p-topper{
+    font-size:12px;
+    color:darkgray;
+}
+.loading {
+    height: 64px;
+    width: 64px;
+}

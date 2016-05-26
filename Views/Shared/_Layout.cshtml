@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <meta name="Description" content="Сура дня. Читать на любом устрйстве четыре перевода Корана онлайн на русском языке Пороховой, Кулиева, Османова, Крачковского" />
+    <meta name="Описание" content="Сура дня. Читать на любом устрйстве четыре перевода Корана онлайн на русском языке Пороховой, Кулиева, Османова, Крачковского" />
+    <meta name="keywords" content="коран читать на русском онлайн, коран, крачковский, порохова, османов, кулиев">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        body {
+            padding-top: 5px;
+            min-height: 410px;
+        }
+
+        .tab-content p {
+            padding: 10px 0;
+        }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <!--=======для спиннера========================================================-->
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+    function showPageLoadingSpinner() {
+        $('#ajaxLoaderDiv').show();
+    }
+
+    function hidePageLoadingSpinner() {
+        setTimeout(function () {
+            $('.ajax-loader').remove();
+            $('#ajaxLoaderDiv').hide();
+        }, 20000);
+    }
+
+    </script>
+    <!--===========================================================================-->
+</head>
+<body>
+    <div id="ajaxLoaderDiv" style="position:fixed; top:40%; left:45%; z-index:1234; display:none;">
+        <img src="@Url.Content("~/Images/ajax-loader.gif")" alt="Loading..." class="ajax-loader" />
+    </div>
+    <div class="center-content">
+        <div class="btn-group">
+            <img src="@Url.Content("~/Images/Quran.jpg")" />
+        </div>
+        <div class="btn-group">
+            @*<a href="http://koran.site/ru" title="" class="main-menu">Коран онлайн</a>&nbsp;&nbsp;*@
+            @*<a href="http://localhost/koran/Home/GetHadith" title="" class="main-menu">Хадисы</a>*@
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                    onclick="location.href='@Url.Action("Index", "Home")'">
+                Коран онлайн
+            </button>
+        </div> 
+        <div class="btn-group">
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                    onclick="location.href='@Url.Action("GetHadith", "Home")'">
+                Хадисы
+            </button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                    onclick="location.href='@Url.Action("Articles", "Home")'">
+                Статьи
+            </button>
+        </div>
+        <!-- .btn-group -->
+        @*<div class="btn-group">
+        <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">Столпы Веры <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Вера в Бога", "Articles", new { Id = "Vera-v-Boga" }, null)</li>
+            <li><a href="#">Вера в Ангелов</a></li>
+            <li><a href="#">Вера в Небесные Книги</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
+        </div> <!-- .btn-group -->
+        <div class="btn-group">
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">Столпы Ислама <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Вера в Бога</a></li>
+                <li><a href="#">Вера в Ангелов</a></li>
+                <li><a href="#">Вера в Небесные Книги</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div> <!-- .btn-group -->
+        <div class="btn-group">
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                    onclick="location.href='@Url.Action("Articles", "Home", new { Id = "Stati" })'">
+                Статьи
+            </button>
+        </div> <!-- .btn-group -->
+        <div class="btn-group">
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                    onclick="location.href='@Url.Action("Hadithes", "Home", new { Id = "Hadisy" })'">
+                Хадисы
+            </button>
+        </div> <!-- .btn-group -->*@
+        <div class="btn-group">
+            <form class="navbar-form navbar-left" role="form" id="SearchForm" method="post" action="~/Home/SearchResult">
+                <div class="form-group">
+                    <input type="text" id="SearchTextId" lang="ru" name="SearchText" class="form-control" placeholder="Поиск по Корану">
+                </div>
+                <button type="submit" lang="ru" onclick = "showPageLoadingSpinner()" class="btn btn-default" id="submit">Поиск</button>
+            </form>
+        </div>
+        <div class="btn-group">
+            <a href="http://koran.site/en" title="Перевод Корана на английском">Eng</a>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p class="p-footer">
+                    Веб сайт Koran.site доступен с мобильных устройств<br />
+                    &copy; @DateTime.Now.Year&nbsp;<a href="mailto:info@koran.site" target="_top">info@koran.site</a></br>
+                </p>
+            </footer>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+   
+@*<!-- вместе с меню необходимо восстановить -->
+    <script src="~/Scripts/bootstrap-hover-dropdown.min.js"></script>
+    <script>
+    // very simple to use!
+    $(document).ready(function() {
+      $('.js-activated').dropdownHover().dropdown();
+    });
+    </script>
+*@
+</body>
+</html>
